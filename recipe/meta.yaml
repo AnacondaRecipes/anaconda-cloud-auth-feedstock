@@ -56,7 +56,6 @@ test:
     - anaconda cloud -V
     - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - ls -ld /root  # [linux]
     # tests/test_handler.py::test_shutdown_server_before_completing_authentication can fail
     # with "OSError: [Errno 48] Address already in use" if http://127.0.0.1:8000/ is running on the same machine.
     # tests/test_token.py::test_anaconda_keyring_not_writable fails with AssertionError because we run as root on linux
