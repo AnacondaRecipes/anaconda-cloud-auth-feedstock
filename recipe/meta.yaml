@@ -60,6 +60,7 @@ outputs:
     requirements:
       host:
         - python
+        - {{ pin_subpackage("anaconda-auth", exact=True) }}
       run:
         - python
         - {{ pin_subpackage("anaconda-auth", exact=True) }}
