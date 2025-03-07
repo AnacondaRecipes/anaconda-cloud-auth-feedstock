@@ -46,6 +46,8 @@ outputs:
         - conda-token >=0.6.0
         - anaconda-cloud-auth >=0.8.2
     test:
+      source_files:
+        - pyproject.toml
       requires:
         - pip
       imports:
@@ -64,6 +66,8 @@ outputs:
         - python
         - {{ pin_subpackage("anaconda-auth", exact=True) }}
     test:
+      source_files:
+        - pyproject.toml
       imports:
         - anaconda_auth
         - anaconda_cloud_auth
