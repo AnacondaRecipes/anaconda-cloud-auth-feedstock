@@ -40,7 +40,7 @@ outputs:
       run_constrained:
         - conda >=23.9.0
         - conda-token >=0.6.0
-        - {{ pin_subpackage("anaconda-cloud-auth", exact=True) }}
+        - anaconda-cloud-auth >=0.8.2
     test:
       requires:
         - pip
@@ -80,10 +80,7 @@ outputs:
         - anaconda -V
         - anaconda cloud --help
         - anaconda cloud -V
-        - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
         - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
-        # check that pip gets the correct version
-        - python -c "from importlib.metadata import version; assert(version('anconda-cloud-auth')=='{{ version }}')"
         # tests/test_handler.py::test_shutdown_server_before_completing_authentication can fail
         # with "OSError: [Errno 48] Address already in use" if http://127.0.0.1:8000/ is running on the same machine.
         # tests/test_token.py::test_anaconda_keyring_not_writable fails with AssertionError because we run as root on linux
