@@ -15,6 +15,10 @@ build:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
   skip: True  # [py<38]
 
+requirements:
+  build:
+    - git   # [not win]
+
 outputs:
   - name: anaconda-auth
     build:
