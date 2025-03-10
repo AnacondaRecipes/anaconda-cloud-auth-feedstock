@@ -1,79 +1,106 @@
-{% set name = "anaconda-cloud-auth" %}
-{% set version = "0.7.2" %}
+{% set version = "0.8.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: anaconda-cloud-auth-split
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cloud_auth-{{ version }}.tar.gz
-  sha256: bdb49cdb5a22b5d0c1d825cf2b0529005628fa987b5a1466283d80722590044a
+  git_url: https://github.com/anaconda/anaconda-auth.git
+  git_tag: v{{ version }}
 
 build:
   number: 0
-  skip: true  # [py<38]
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  # noarch: python
+  script_env:
+    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+  skip: True  # [py<38]
 
 requirements:
-  host:
-    - python
-    - hatchling
-    - hatch-vcs >=0.3
-    - pip
-    - setuptools-scm >=7.1
-  run:
-    - python
-    - anaconda-cli-base >=0.4.0
-    - cryptography >=3.4.0
-    - keyring
-    - pkce
-    - pydantic
-    - pyjwt
-    - python-dotenv
-    - requests
-    - semver <4
-  run_constrained:
-    - conda >=23.9.0
+  build:
+    - git   # [not win]
 
-test:
-  imports:
-    - anaconda_cloud_auth
-  source_files:
-    - tests
-  requires:
-    - pip
-    - pytest
-    - pytest-mock
-    - responses
-    - types-requests
-  commands:
-    - pip check
-    # Check if the ANACONDA_CLI_FORCE_NEW environment variable is required with a new release version.
-    - export ANACONDA_CLI_FORCE_NEW=1  # [unix]
-    - set ANACONDA_CLI_FORCE_NEW=1     # [win]
-    - anaconda -h
-    - anaconda -V
-    - anaconda cloud --help
-    - anaconda cloud -V
-    - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
-    # check that pip gets the correct version
-    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    # tests/test_handler.py::test_shutdown_server_before_completing_authentication can fail
-    # with "OSError: [Errno 48] Address already in use" if http://127.0.0.1:8000/ is running on the same machine.
-    # tests/test_token.py::test_anaconda_keyring_not_writable fails with AssertionError because we run as root on linux
-    - pytest -v tests -k "not test_anaconda_keyring_not_writable"  # [linux]
+outputs:
+  - name: anaconda-auth
+    build:
+      script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+    requirements:
+      build:
+        - git   # [not win]
+      host:
+        - python
+        - hatchling
+        - hatch-vcs >=0.3
+        - pip
+        - setuptools-scm >=7.1
+      run:
+        - python
+        - anaconda-cli-base >=0.5.2
+        - cryptography >=3.4.0
+        - keyring
+        - pkce
+        - pydantic
+        - pyjwt
+        - python-dotenv
+        - requests
+        - semver <4
+      run_constrained:
+        - conda >=23.9.0
+        - conda-token >=0.6.0
+        - anaconda-cloud-auth >=0.8.2
+    test:
+      source_files:
+        - pyproject.toml
+      requires:
+        - pip
+      imports:
+        - anaconda_auth
+      commands:
+        - pip check
+        - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
+
+  - name: anaconda-cloud-auth
+    requirements:
+      build:
+        - git   # [not win]
+      host:
+        - python
+        - {{ pin_subpackage("anaconda-auth", exact=True) }}
+      run:
+        - python
+        - {{ pin_subpackage("anaconda-auth", exact=True) }}
+    test:
+      source_files:
+        - pyproject.toml
+      imports:
+        - anaconda_auth
+        - anaconda_cloud_auth
+      source_files:
+        - tests
+      requires:
+        - pip
+        - pytest
+        - pytest-mock
+        - responses
+        - types-requests
+      commands:
+        - pip check
+        - anaconda -h
+        - anaconda -V
+        - anaconda cloud --help
+        - anaconda cloud -V
+        - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
 
 about:
   home: https://anaconda.cloud
   doc_url: https://pypi.org/project/anaconda-cloud-auth/
-  dev_url: https://github.com/anaconda/anaconda-cloud-tools/tree/main/libs/anaconda-cloud-auth
+  dev_url: https://github.com/anaconda/anaconda-auth
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: A client auth library for Anaconda.cloud APIs
   description: |
     A client library for Anaconda.cloud APIs to authenticate and securely store API keys.
-    This package also provides a requests client class that handles loading the API key 
+    This package also provides a requests client class that handles loading the API key
     for requests made to Anaconda Cloud services.
 
 extra:
