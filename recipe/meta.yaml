@@ -91,8 +91,8 @@ outputs:
         - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
 
 about:
-  home: https://anaconda.cloud
-  doc_url: https://pypi.org/project/anaconda-cloud-auth/
+  home: https://anaconda.com
+  doc_url: https://anaconda.github.io/anaconda-auth/
   dev_url: https://github.com/anaconda/anaconda-auth
   license: BSD-3-Clause
   license_family: BSD
