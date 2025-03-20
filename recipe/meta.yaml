@@ -1,4 +1,4 @@
-{% set version = "0.8.2" %}
+{% set version = "0.8.4" %}
 
 package:
   name: anaconda-cloud-auth-split
@@ -13,7 +13,7 @@ build:
   # noarch: python
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
-  skip: True  # [py<38]
+  skip: True  # [py<39]
 
 requirements:
   build:
