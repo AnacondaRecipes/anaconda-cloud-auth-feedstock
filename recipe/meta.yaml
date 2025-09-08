@@ -17,14 +17,14 @@ build:
 
 requirements:
   build:
-    - git
+    - git   # [not win]
 
 outputs:
   - name: anaconda-auth
     script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
     requirements:
       build:
-        - git
+        - git   # [not win]
       host:
         - python
         - hatchling
@@ -59,7 +59,7 @@ outputs:
   - name: anaconda-cloud-auth
     requirements:
       build:
-        - git
+        - git   # [not win]
       host:
         - python
         - {{ pin_subpackage("anaconda-auth", exact=True) }}
