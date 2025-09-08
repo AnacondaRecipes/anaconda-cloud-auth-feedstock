@@ -17,11 +17,17 @@ build:
 
 requirements:
   build:
-    - git   # [not win]
+    - git  # [not win]
+    - python
+    - hatchling
+    - hatch-vcs >=0.3
+    - pip
+    - setuptools-scm >=7.1
 
 outputs:
   - name: anaconda-auth
-    script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+    script: build.sh   # [not win]
+    script: build.bat  # [win]
     requirements:
       build:
         - git   # [not win]
