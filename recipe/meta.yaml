@@ -26,8 +26,7 @@ requirements:
 
 outputs:
   - name: anaconda-auth
-    script: build.sh   # [not win]
-    script: build.bat  # [win]
+    script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
     requirements:
       build:
         - git   # [not win]
