@@ -14,7 +14,6 @@ build:
 
 requirements:
   build:
-    - git  # [not win]
     - python
     - hatchling
     - hatch-vcs >=0.3
