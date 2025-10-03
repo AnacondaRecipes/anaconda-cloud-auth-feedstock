@@ -1,23 +1,24 @@
-{% set version = "0.8.6" %}
+{% set version = "0.9.1" %}
 
 package:
   name: anaconda-cloud-auth-split
   version: {{ version }}
 
 source:
-  git_url: https://github.com/anaconda/anaconda-auth.git
-  git_tag: v{{ version }}
+  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version}}.tar.gz
+  sha256: e4ea6c780b2e7dec4ad05228e2cba7c746d321886fbc2138c47c88476d7225b1
 
 build:
   number: 0
-  # noarch: python
-  script_env:
-    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
-  skip: True  # [py<39]
+  skip: true  # [py<39]
 
 requirements:
   build:
-    - git   # [not win]
+    - python
+    - hatchling
+    - hatch-vcs >=0.3
+    - pip
+    - setuptools-scm >=7.1
 
 outputs:
   - name: anaconda-auth
@@ -57,7 +58,6 @@ outputs:
       commands:
         - pip check
         - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
-
   - name: anaconda-cloud-auth
     requirements:
       build:
@@ -102,6 +102,7 @@ about:
     A client library for Anaconda.cloud APIs to authenticate and securely store API keys.
     This package also provides a requests client class that handles loading the API key
     for requests made to Anaconda Cloud services.
+
 
 extra:
   recipe-maintainers:
