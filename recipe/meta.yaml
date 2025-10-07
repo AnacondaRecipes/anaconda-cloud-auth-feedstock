@@ -46,7 +46,7 @@ outputs:
         - semver <4
       run_constrained:
         - conda >=23.9.0
-        - conda-token >=0.6.0
+        - conda-token >=0.7.0
         - anaconda-cloud-auth >=0.8.2
     test:
       source_files:
