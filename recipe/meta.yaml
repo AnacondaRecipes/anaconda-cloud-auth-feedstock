@@ -1,4 +1,4 @@
-{% set version = "0.9.1" %}
+{% set version = "0.10.0" %}
 
 package:
   name: anaconda-cloud-auth-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version}}.tar.gz
-  sha256: e4ea6c780b2e7dec4ad05228e2cba7c746d321886fbc2138c47c88476d7225b1
+  sha256: d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed
 
 build:
   number: 0
@@ -46,7 +46,7 @@ outputs:
         - semver <4
       run_constrained:
         - conda >=23.9.0
-        - conda-token >=0.6.0
+        - conda-token >=0.7.0
         - anaconda-cloud-auth >=0.8.2
     test:
       source_files:
