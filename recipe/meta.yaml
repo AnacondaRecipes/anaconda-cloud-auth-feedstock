@@ -9,7 +9,7 @@ source:
   sha256: ae08d91b2e04fd7af6c52d6e17c2dfcb214705fed076ada61271b4b1c6fad67b
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<39]
 
 requirements:
@@ -24,6 +24,8 @@ outputs:
   - name: anaconda-auth
     build:
       script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+      entry_points:
+      - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
       build:
         - git   # [not win]
@@ -82,6 +84,7 @@ outputs:
         - pytest-mock
         - responses
         - types-requests
+        - conda >=23.9.0  # Match with run_constrained above
       commands:
         - pip check
         - anaconda -h
@@ -89,6 +92,8 @@ outputs:
         - anaconda cloud --help
         - anaconda cloud -V
         - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
+        - conda-token -h
+        - conda token -h
 
 about:
   home: https://anaconda.com
