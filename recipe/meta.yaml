@@ -91,6 +91,8 @@ outputs:
         - anaconda cloud --help
         - anaconda cloud -V
         - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
+        - conda-token -h
+        - conda token -h
 
 about:
   home: https://anaconda.com
