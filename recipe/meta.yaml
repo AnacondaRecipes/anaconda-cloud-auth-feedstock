@@ -24,6 +24,8 @@ outputs:
   - name: anaconda-auth
     build:
       script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+      entry_points:
+      - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
       build:
         - git   # [not win]
