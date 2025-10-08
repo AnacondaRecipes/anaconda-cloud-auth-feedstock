@@ -84,6 +84,7 @@ outputs:
         - pytest-mock
         - responses
         - types-requests
+        - conda >=23.9.0  # Match with run_constrained above
       commands:
         - pip check
         - anaconda -h
