@@ -37,7 +37,7 @@ outputs:
         - setuptools-scm >=7.1
       run:
         - python
-        - anaconda-cli-base >=0.5.2
+        - anaconda-cli-base >=0.5.4
         - cryptography >=3.4.0
         - keyring
         - pkce
