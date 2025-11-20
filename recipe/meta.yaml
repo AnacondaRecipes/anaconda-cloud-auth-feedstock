@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version}}.tar.gz
+  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
   sha256: a5afb5dc5e3f7ac261858665980bcd61fba8a97e5d97c1737f9eeb0c4f286034
 
 build:
@@ -27,8 +27,6 @@ outputs:
       entry_points:
       - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
-      build:
-        - git   # [not win]
       host:
         - python
         - hatchling
