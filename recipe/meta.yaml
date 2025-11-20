@@ -1,15 +1,15 @@
-{% set version = "0.10.0" %}
+{% set version = "0.11.0" %}
 
 package:
   name: anaconda-cloud-auth-split
   version: {{ version }}
 
 source:
-  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version}}.tar.gz
-  sha256: ae08d91b2e04fd7af6c52d6e17c2dfcb214705fed076ada61271b4b1c6fad67b
+  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: a5afb5dc5e3f7ac261858665980bcd61fba8a97e5d97c1737f9eeb0c4f286034
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39]
 
 requirements:
@@ -27,8 +27,6 @@ outputs:
       entry_points:
       - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
-      build:
-        - git   # [not win]
       host:
         - python
         - hatchling
@@ -37,7 +35,7 @@ outputs:
         - setuptools-scm >=7.1
       run:
         - python
-        - anaconda-cli-base >=0.5.2
+        - anaconda-cli-base >=0.5.4
         - cryptography >=3.4.0
         - keyring
         - pkce
@@ -47,9 +45,10 @@ outputs:
         - requests
         - semver <4
       run_constrained:
+        # Added through past PRs, given upstream maintainer advice
         - conda >=23.9.0
         - conda-token >=0.7.0
-        - anaconda-cloud-auth >=0.8.2
+        - anaconda-cloud-auth >={{ version }}
     test:
       source_files:
         - pyproject.toml
@@ -62,8 +61,6 @@ outputs:
         - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
   - name: anaconda-cloud-auth
     requirements:
-      build:
-        - git   # [not win]
       host:
         - python
         - {{ pin_subpackage("anaconda-auth", exact=True) }}
