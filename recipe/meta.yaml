@@ -45,9 +45,10 @@ outputs:
         - requests
         - semver <4
       run_constrained:
+        # Added through past PRs, given upstream maintainer advice
         - conda >=23.9.0
         - conda-token >=0.7.0
-        - anaconda-cloud-auth >=0.8.2
+        - anaconda-cloud-auth >={{ version }}
     test:
       source_files:
         - pyproject.toml
