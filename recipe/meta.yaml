@@ -1,4 +1,4 @@
-{% set version = "0.11.0" %}
+{% set version = "0.12.0" %}
 
 package:
   name: anaconda-cloud-auth-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a5afb5dc5e3f7ac261858665980bcd61fba8a97e5d97c1737f9eeb0c4f286034
+  sha256: 072912f634e6662266d54ac2ed9827725fe53789270c91c4c47f2a4db4e8c3d4
 
 build:
   number: 0
@@ -35,7 +35,7 @@ outputs:
         - setuptools-scm >=7.1
       run:
         - python
-        - anaconda-cli-base >=0.5.4
+        - anaconda-cli-base >=0.7.0
         - cryptography >=3.4.0
         - keyring
         - pkce
