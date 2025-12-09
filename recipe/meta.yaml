@@ -23,7 +23,10 @@ requirements:
 outputs:
   - name: anaconda-auth
     build:
-      script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+      script:
+        - python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+        # Do not use python -m ... here to avoid unnecessary imports
+        - python ./src/anaconda_auth/_conda/config.py --install
       entry_points:
       - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
@@ -59,6 +62,7 @@ outputs:
       commands:
         - pip check
         - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
+        - python -m anaconda_auth._conda.config --verify
   - name: anaconda-cloud-auth
     requirements:
       host:
