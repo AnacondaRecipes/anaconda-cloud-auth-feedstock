@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed
+  sha256: 6e952baf3ca2276b660187895b620274428f22a6576edd734ac490e22bb88279
 
 build:
   number: 0
