@@ -1,4 +1,4 @@
-{% set version = "0.12.0" %}
+{% set version = "0.12.1" %}
 
 package:
   name: anaconda-cloud-auth-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 072912f634e6662266d54ac2ed9827725fe53789270c91c4c47f2a4db4e8c3d4
+  sha256: 6e952baf3ca2276b660187895b620274428f22a6576edd734ac490e22bb88279
 
 build:
   number: 0
@@ -23,7 +23,10 @@ requirements:
 outputs:
   - name: anaconda-auth
     build:
-      script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+      script:
+        - python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+        # Do not use python -m ... here to avoid unnecessary imports
+        - python ./src/anaconda_auth/_conda/config.py --install
       entry_points:
       - conda-token = anaconda_auth._conda.conda_token:cli
     requirements:
@@ -54,11 +57,13 @@ outputs:
         - pyproject.toml
       requires:
         - pip
+        - conda
       imports:
         - anaconda_auth
       commands:
         - pip check
         - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
+        - python -m anaconda_auth._conda.config --verify
   - name: anaconda-cloud-auth
     requirements:
       host:
