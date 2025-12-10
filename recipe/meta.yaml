@@ -57,6 +57,7 @@ outputs:
         - pyproject.toml
       requires:
         - pip
+        - conda
       imports:
         - anaconda_auth
       commands:
