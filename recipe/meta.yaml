@@ -110,7 +110,6 @@ about:
     This package also provides a requests client class that handles loading the API key
     for requests made to Anaconda Cloud services.
 
-
 extra:
   recipe-maintainers:
     - albertdefusco
