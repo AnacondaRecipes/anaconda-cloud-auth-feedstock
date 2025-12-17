@@ -17,7 +17,6 @@ build:
 
 requirements:
   build:
-    - git  # [not win]
     - python
     - hatchling
     - hatch-vcs >=0.3
@@ -29,8 +28,6 @@ outputs:
     build:
       script: python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
     requirements:
-      build:
-        - git   # [not win]
       host:
         - python
         - hatchling
@@ -64,8 +61,6 @@ outputs:
         - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
   - name: anaconda-cloud-auth
     requirements:
-      build:
-        - git   # [not win]
       host:
         - python
         - {{ pin_subpackage("anaconda-auth", exact=True) }}
