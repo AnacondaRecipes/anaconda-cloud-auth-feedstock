@@ -1,4 +1,4 @@
-{% set version = "0.13.0" %}
+{% set version = "0.13.1" %}
 
 package:
   name: anaconda-cloud-auth-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: daf7c6122cf9cb37ac8e04f5a399026cd9f027067e99bd6bcb8c4ea86956b4d8
+  sha256: 8471cba04131bf335b02588d51716b2bde0898fadd0a9d2606d643f4dcafa251
 
 build:
   number: 0
