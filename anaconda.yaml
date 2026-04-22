@@ -3,7 +3,9 @@ upstream_sources:
   - github:
       identifier: anaconda/anaconda-auth
       use_max_tag: true
-      include_regex: ^\d+\.\d+\.\d+$
+      include_regex: ^v\d+\.\d+\.\d+$
+      from_pattern: ^v(.+)$
+      to_pattern: \1
     packages:
       - anaconda-auth
       - anaconda-cloud-auth
